@@ -11,7 +11,7 @@ import org.spongepowered.api.world.World;
 import java.util.List;
 import java.util.function.Predicate;
 
-public class SpoofModifier implements BlockModifier {
+public class RandomizedModifier implements BlockModifier {
 
     @Override
     public BlockState handleBlock(BlockState original, Location<World> location, List<BlockState> surroundingBlocks) {

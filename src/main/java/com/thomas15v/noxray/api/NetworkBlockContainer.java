@@ -2,6 +2,7 @@ package com.thomas15v.noxray.api;
 
 import com.flowpowered.math.vector.Vector3i;
 import com.thomas15v.noxray.NoXrayPlugin;
+import com.thomas15v.noxray.modifications.OreUtil;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.network.PacketBuffer;
@@ -148,8 +149,7 @@ public class NetworkBlockContainer implements BlockStatePaletteResizer {
         }
     }
 
-    private final static Direction[] directions = new Direction[]{Direction.EAST,
-            Direction.NORTH, Direction.SOUTH, Direction.WEST};
+
 
     public List<BlockState> getSurrounding(Location<World> location){
         List<BlockState> blockStates = new ArrayList<BlockState>(){
@@ -168,7 +168,7 @@ public class NetworkBlockContainer implements BlockStatePaletteResizer {
         if (location.getY() != 0){
             blockStates.add(location.getRelative(Direction.DOWN).getBlock());
         }
-        for (Direction direction : directions) {
+        for (Direction direction : OreUtil.getOrdalDirections()) {
                 blockStates.add(location.getRelative(direction).getBlock());
         }
         if (blockStates.size() < 5){
@@ -176,5 +176,4 @@ public class NetworkBlockContainer implements BlockStatePaletteResizer {
         }
         return blockStates;
     }
-
 }

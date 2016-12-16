@@ -1,4 +1,4 @@
-package com.thomas15v.noxray.modifier.modifiers;
+package com.thomas15v.noxray.modifier;
 
 /**
  * Created by thomas15v on 16/12/16.

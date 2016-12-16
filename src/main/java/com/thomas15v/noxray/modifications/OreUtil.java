@@ -8,6 +8,7 @@ import org.spongepowered.api.block.BlockState;
 import org.spongepowered.api.block.BlockType;
 import org.spongepowered.api.block.BlockTypes;
 import org.spongepowered.api.data.property.block.FullBlockSelectionBoxProperty;
+import org.spongepowered.api.util.Direction;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -17,6 +18,8 @@ import java.util.concurrent.ThreadLocalRandom;
 public class OreUtil {
 
     private static List<BlockType> Ores = new ArrayList<>();
+    private final static Direction[] ordalDirections = new Direction[]{Direction.EAST,
+            Direction.NORTH, Direction.SOUTH, Direction.WEST, Direction.DOWN, Direction.UP};
 
     static {
         addOre(BlockTypes.REDSTONE_ORE);
@@ -60,5 +63,9 @@ public class OreUtil {
 
     public static boolean isExposed(List<BlockState> surroundingBlocks){
         return surroundingBlocks.stream().anyMatch(blockState -> !blockState.getType().getProperty(FullBlockSelectionBoxProperty.class).get().getValue());
+    }
+
+    public static Direction[] getOrdalDirections() {
+        return ordalDirections;
     }
 }

@@ -1,4 +1,4 @@
-package com.thomas15v.noxray.modifier;
+package com.thomas15v.noxray.modifier.modifiers;
 
 
 import com.thomas15v.noxray.api.BlockModifier;
