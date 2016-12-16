@@ -6,7 +6,7 @@ import org.spongepowered.api.world.World;
 
 import java.util.List;
 
-public class VeinModifier extends RandomizedModifier {
+public class VeinRandomModifier extends RandomModifier {
 
     @Override
     public BlockState handleBlock(BlockState original, Location<World> location, List<BlockState> surroundingBlocks) {

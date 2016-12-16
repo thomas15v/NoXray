@@ -7,7 +7,6 @@ import com.thomas15v.noxray.config.NoXrayConfig;
 import com.thomas15v.noxray.event.ChunkEventListener;
 import com.thomas15v.noxray.event.PlayerEventListener;
 import com.thomas15v.noxray.modifications.OreUtil;
-import com.thomas15v.noxray.modifier.modifiers.RandomizedModifier;
 import ninja.leaping.configurate.ConfigurationOptions;
 import ninja.leaping.configurate.commented.CommentedConfigurationNode;
 import ninja.leaping.configurate.loader.ConfigurationLoader;
@@ -17,7 +16,8 @@ import org.slf4j.Logger;
 import org.spongepowered.api.Game;
 import org.spongepowered.api.config.DefaultConfig;
 import org.spongepowered.api.event.Listener;
-import org.spongepowered.api.event.game.state.GameLoadCompleteEvent;
+import org.spongepowered.api.event.game.state.GamePostInitializationEvent;
+import org.spongepowered.api.event.game.state.GamePreInitializationEvent;
 import org.spongepowered.api.event.game.state.GameStartedServerEvent;
 import org.spongepowered.api.plugin.Plugin;
 
@@ -49,9 +49,8 @@ public class NoXrayPlugin {
     private NoXrayConfig config;
 
     @Listener
-    public void onStart(GameLoadCompleteEvent event){
+    public void onPreInit(GamePreInitializationEvent event){
         loadConfig();
-        blockModifier = new RandomizedModifier();
         instance = this;
         game.getEventManager().registerListeners(this, new ChunkEventListener());
         game.getEventManager().registerListeners(this, new PlayerEventListener());
@@ -60,6 +59,11 @@ public class NoXrayPlugin {
                 OreUtil.registerForgeOres();
             } catch (NoClassDefFoundError ignored){}
         }
+    }
+
+    @Listener
+    public void onPreInit(GamePostInitializationEvent event){
+        blockModifier = config.getModifier();
     }
 
     @Listener
@@ -72,7 +76,6 @@ public class NoXrayPlugin {
     }
 
     private void loadConfig(){
-
         try {
             CommentedConfigurationNode node = loader.load(ConfigurationOptions.defaults().setObjectMapperFactory(factory).setShouldCopyDefaults(true));
             config = node.getValue(TypeToken.of(NoXrayConfig.class), new NoXrayConfig());
