@@ -7,6 +7,7 @@ import net.minecraftforge.oredict.OreDictionary;
 import org.spongepowered.api.block.BlockState;
 import org.spongepowered.api.block.BlockType;
 import org.spongepowered.api.block.BlockTypes;
+import org.spongepowered.api.data.property.block.FullBlockSelectionBoxProperty;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -57,10 +58,7 @@ public class OreUtil {
         return Ores.get(ThreadLocalRandom.current().nextInt(0, Ores.size()));
     }
 
-    private static final List<BlockType> SEE_TROUGH = Arrays.asList(BlockTypes.AIR, BlockTypes.WATER,
-            BlockTypes.LEAVES, BlockTypes.LEAVES2, BlockTypes.WALL_SIGN, BlockTypes.STANDING_SIGN, BlockTypes.SNOW_LAYER);
-
     public static boolean isExposed(List<BlockState> surroundingBlocks){
-        return surroundingBlocks.stream().anyMatch(blockState -> SEE_TROUGH.contains(blockState.getType()));
+        return surroundingBlocks.stream().anyMatch(blockState -> !blockState.getType().getProperty(FullBlockSelectionBoxProperty.class).get().getValue());
     }
 }
