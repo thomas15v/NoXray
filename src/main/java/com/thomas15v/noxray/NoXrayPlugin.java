@@ -7,8 +7,7 @@ import com.thomas15v.noxray.config.NoXrayConfig;
 import com.thomas15v.noxray.event.ChunkEventListener;
 import com.thomas15v.noxray.event.PlayerEventListener;
 import com.thomas15v.noxray.modifications.OreUtil;
-import com.thomas15v.noxray.modifier.GenerationModifier;
-import com.thomas15v.noxray.modifier.PlayerGenerationModifier;
+import com.thomas15v.noxray.modifier.modifiers.SpoofModifier;
 import ninja.leaping.configurate.ConfigurationOptions;
 import ninja.leaping.configurate.commented.CommentedConfigurationNode;
 import ninja.leaping.configurate.loader.ConfigurationLoader;
@@ -52,7 +51,7 @@ public class NoXrayPlugin {
     @Listener
     public void onStart(GameLoadCompleteEvent event){
         loadConfig();
-        blockModifier = new GenerationModifier();
+        blockModifier = new SpoofModifier();
         instance = this;
         game.getEventManager().registerListeners(this, new ChunkEventListener());
         game.getEventManager().registerListeners(this, new PlayerEventListener());

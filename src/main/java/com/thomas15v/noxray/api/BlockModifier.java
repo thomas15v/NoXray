@@ -1,7 +1,6 @@
 package com.thomas15v.noxray.api;
 
 import org.spongepowered.api.block.BlockState;
-import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.world.Location;
 import org.spongepowered.api.world.World;
 

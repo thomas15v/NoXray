@@ -1,11 +1,9 @@
 package com.thomas15v.noxray.event;
 
-import org.spongepowered.api.block.BlockSnapshot;
 import org.spongepowered.api.block.BlockTypes;
-import org.spongepowered.api.data.Transaction;
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.event.Listener;
-import org.spongepowered.api.event.block.ChangeBlockEvent;
+import org.spongepowered.api.event.block.InteractBlockEvent;
 import org.spongepowered.api.util.Direction;
 import org.spongepowered.api.world.Location;
 import org.spongepowered.api.world.World;
@@ -13,14 +11,13 @@ import org.spongepowered.api.world.World;
 public class PlayerEventListener {
 
     @Listener
-    public void onBlockUpdate(ChangeBlockEvent.Break event){
-        if (event.getCause().containsType(Player.class)) {
-            event.getTransactions().forEach(PlayerEventListener::updateBlocks);
+    public void onBlockUpdate(InteractBlockEvent event){
+        if (event.getCause().containsType(Player.class) && event.getTargetBlock().getLocation().isPresent()) {
+            updateBlocks(event.getTargetBlock().getLocation().get());
         }
     }
 
-    private static void updateBlocks(Transaction<BlockSnapshot> transaction){
-        Location<World> location = transaction.getOriginal().getLocation().get();
+    private static void updateBlocks(Location<World>  location){
         for (Direction direction : Direction.values()) {
             if (!direction.isSecondaryOrdinal()) {
                 updateBlock(location.getBlockRelative(direction));

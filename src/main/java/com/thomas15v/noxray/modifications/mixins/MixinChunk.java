@@ -29,18 +29,17 @@ public class MixinChunk implements InternalChunk {
 
     @Override
     public void obFuscate(){
-        if (networkChunk == null) {
-            if (worldObj.getWorldType().getWorldTypeID() != -1 && worldObj.getWorldType().getWorldTypeID() != 1 && networkChunk == null) {
+            if (networkChunk == null && worldObj.getWorldType().getWorldTypeID() != -1 && worldObj.getWorldType().getWorldTypeID() != 1 && networkChunk == null) {
                 NetworkBlockContainer[] blockContainers = new NetworkBlockContainer[storageArrays.length];
                 for (int i = 0; i < storageArrays.length; i++) {
                     if (storageArrays[i] != null) {
                         blockContainers[i] = ((InternalBlockStateContainer) storageArrays[i].getData()).getBlockContainer();
                     }
                 }
-                networkChunk = new NetworkChunk(blockContainers, (org.spongepowered.api.world.Chunk) this);
+                this.networkChunk = new NetworkChunk(blockContainers, (org.spongepowered.api.world.Chunk) this);
                 ((InternalWorld) worldObj).getNetworkWorld().addChunk(networkChunk);
                 networkChunk.obfuscate();
             }
-        }
+
     }
 }

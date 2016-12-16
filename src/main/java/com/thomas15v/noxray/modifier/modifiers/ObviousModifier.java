@@ -1,6 +1,7 @@
-package com.thomas15v.noxray.modifier;
+package com.thomas15v.noxray.modifier.modifiers;
 
 import com.thomas15v.noxray.modifications.OreUtil;
+import com.thomas15v.noxray.modifier.AbstractModifier;
 import org.spongepowered.api.block.BlockState;
 import org.spongepowered.api.block.BlockType;
 import org.spongepowered.api.block.BlockTypes;
